@@ -104,8 +104,8 @@ const (
 
 	// vxlan related consts
 	VXLAN_VTEP_PREFIX = "Vtep"
-	
-        //Route related consts
+
+	//Route related consts
 	MAX_NEXTHOPS_PER_GROUP      = C.MAX_NEXTHOPS_PER_GROUP
 	ROUTE_OPERATION_TYPE_UPDATE = C.ROUTE_OPERATION_TYPE_UPDATE
 	ROUTE_TYPE_CONNECTED        = C.ROUTE_TYPE_CONNECTED
