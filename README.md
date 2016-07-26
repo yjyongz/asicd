@@ -38,14 +38,14 @@ Extending ASICd via plugins to support a new ASIC
 Snaproute's ASIC daemon, currently has support to provision multiple vendor Asic's. ASICd can easily be ported over to a new vendor Asic via the plugin architecture as documented below.
 
 The following steps detail how ASICd can be ported over to support a new silicon vendor's chip.
-Step 1:
+#####Step 1:
 Provide implementations for all methods belonging to the plugin interface. The plugin interface is documented in the header file “pluginManager/pluginCommon/pluginInterface.h”
 
-Step 2:
+#####Step 2:
 Compile the plugin code implemented in step 1 above into a shared library under the name libcustom.so
 
-Step 3:
+#####Step 3:
 Replace the dummy library libcustom.so located in the "bin" directory with the shared library compiled above in Step 2
 
-Step 4:
+#####Step 4:
 Build a flexswitch package, install and run.
