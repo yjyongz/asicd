@@ -39,7 +39,9 @@ Snaproute's ASIC daemon, currently has support to provision multiple vendor Asic
 
 The following steps detail how ASICd can be ported over to support a new silicon vendor's chip.
 #####Step 1:
-Provide implementations for all methods belonging to the plugin interface. The plugin interface is documented in the header file “pluginManager/pluginCommon/pluginInterface.h”
+Provide implementations for all methods belonging to the plugin interface. The plugin interface is documented in the header file “”
+
+![alt text](https://github.com/OpenSnaproute/asicd/blob/master/pluginManager/pluginCommon/pluginInterface.h "pluginManager/pluginCommon/pluginInterface.h")
 
 #####Step 2:
 Compile the plugin code implemented in step 1 above into a shared library under the name libcustom.so
