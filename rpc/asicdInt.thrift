@@ -74,10 +74,20 @@ struct IPv4NextHop {
     2: i32 Weight
     3: i32 NextHopIfType
 }
+struct IPv6NextHop {
+    1: string NextHopIp
+    2: i32 Weight
+    3: i32 NextHopIfType
+}
 struct IPv4Route {
     1: string destinationNw
     2: string networkMask
     3: list<IPv4NextHop> NextHopList
+}
+struct IPv6Route {
+    1: string destinationNw
+    2: string networkMask
+    3: list<IPv6NextHop> NextHopList
 }
 struct Vlan {
 	1 : i32 VlanId
@@ -107,9 +117,6 @@ service ASICDINTServices {
     //Vlan
     VlanGetInfo GetBulkVlan(1: int fromIndex, 2: int count);
 
-    //Intf
-    IntfGetInfo GetBulkIntf(1: int fromIndex, 2: int count);
-
     //STP
     i32 CreateStg(1:list<i32> vlanList);
     bool DeleteStg(1:i32 stgId);
@@ -133,19 +140,12 @@ service ASICDINTServices {
     oneway void OnewayCreateIPv4Route(1:list<IPv4Route> ipv4RouteList);
     oneway void OnewayDeleteIPv4Route(1:list<IPv4Route> ipv4RouteList);
 
-    //Protocol Mac Addr
-    bool EnablePacketReception(1:RsvdProtocolMacConfig config);
-    bool DisablePacketReception(1:RsvdProtocolMacConfig config);
-	
-    //Err-disable	
-    bool ErrorDisablePort(1: i32 ifIndex, 2:string AdminState, 3:string ErrDisableReason)
-	
-    // auto generated for vxland, and copied here as config is proxied
-    // so if interface changes must update here as well.  Only difference is
-    // the asicd tends to return id values and the function names changed 
-    i32 CreateVxlanVtep(1: Vtep config);
-    bool DeleteVxlanVtep(1: Vtep config);
-    i32 CreateVxlan(1: Vxlan config);
-    bool DeleteVxlan(1: Vxlan config);
-    bool LearnFdbVtep(1:string mac, 2:string vtep, 3:i32 ifindex);
+    //IPv6 neighbors
+    i32 CreateIPv6Neighbor(1:string ipAddr, 2:string macAddr, 3:i32 vlanId, 4:i32 ifIndex);
+    i32 UpdateIPv6Neighbor(1:string ipAddr, 2:string macAddr, 3:i32 vlanId, 4:i32 ifIndex);
+    i32 DeleteIPv6Neighbor(1:string ipAddr, 2:string macAddr, 3:i32 vlanId, 4:i32 ifIndex);
+    
+    //IPv6 routes
+    oneway void OnewayCreateIPv6Route(1:list<IPv6Route> ipv6RouteList);
+    oneway void OnewayDeleteIPv6Route(1:list<IPv6Route> ipv6RouteList);
 }
