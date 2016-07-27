@@ -32,21 +32,22 @@ The asicd daemon supports signaling/notification of asynchronous events. The not
 - Vlan/Lag interface creation/deletion
 - IP interface operational state changes
 
-Extending ASICd via plugins to support a new ASIC
-=================================================
+Extending ASICd to support a new ASIC
+=====================================
 
-Snaproute's ASIC daemon, currently has support to provision multiple vendor Asic's. ASICd can easily be ported over to a new vendor Asic via the plugin architecture as documented below.
+Snaproute's ASIC daemon, currently has support to provision multiple vendor Asic's. ASICd can easily be ported over to a new vendor Asic as documented below.
 
 The following steps detail how ASICd can be ported over to support a new silicon vendor's chip.
+
 #####Step 1:
-Provide implementations for all methods belonging to the plugin interface. The plugin interface is documented in the header file 
-[pluginManager/pluginCommon/pluginInterface.h](https://github.com/OpenSnaproute/asicd/blob/master/pluginManager/pluginCommon/pluginInterface.h) 
+Provide implementations for all methods defined in ASICd's thrift interface. The handler functions for the thrift interface are located in the following files
+- [rpc/l2Services.go](https://github.com/OpenSnaproute/asicd/blob/master/rpc/l2Services.go) 
+- [rpc/l3Services.go](https://github.com/OpenSnaproute/asicd/blob/master/rpc/l3Services.go) 
+- [rpc/vlanServices.go](https://github.com/OpenSnaproute/asicd/blob/master/rpc/vlanServices.go) 
+- [rpc/portServices.go](https://github.com/OpenSnaproute/asicd/blob/master/rpc/portServices.go) 
 
 #####Step 2:
-Compile the plugin code implemented in step 1 above into a shared library under the name libcustom.so
+Compile ASICd by running 'make BUILD_TARGET=custom'
 
 #####Step 3:
-Replace the dummy library libcustom.so located in the "bin" directory with the shared library compiled above in Step 2
-
-#####Step 4:
 Build a flexswitch package, install and run.

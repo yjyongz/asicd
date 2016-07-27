@@ -7,6 +7,7 @@ COMP_NAME = asicd
 
 #Set default build targets
 BUILD_TARGET = cel_redstone
+BUILD_ASICD = false
 
 #Set paths for use during install
 PARAMSDIR = $(DESTDIR)/params
@@ -14,7 +15,6 @@ DESTDIR = $(SR_CODE_BASE)/snaproute/src/out/bin
 BCMDIR = $(SR_CODE_BASE)/snaproute/src/bin-AsicdBcm
 MLNXDIR = $(SR_CODE_BASE)/snaproute/src/bin-AsicdMlnx
 PLUGIN_MGR_DIR = $(SR_CODE_BASE)/snaproute/src/asicd/pluginManager
-BASE_ASICD_BIN = $(SR_CODE_BASE)/snaproute/src/asicd/bin
 
 #IPC related vars
 IPC_GEN_CMD = thrift
@@ -52,15 +52,19 @@ else ifeq ($(BUILD_TARGET), accton_wedge40)
 else ifeq ($(BUILD_TARGET), mlnx_sn2700)
 	ASICD_BIN = $(MLNXDIR)/mlnx_sn2700/asicd
 else
-	ASICD_BIN = $(BASE_ASICD_BIN)/asicd
+	BUILD_ASICD = true
 endif
 
 #TARGETS
-all:ipc
+all:ipc exe
 
 exe:
+ifeq ($(BUILD_ASICD), true)
+	go build -o $(DESTDIR)/$(COMP_NAME)
+else
 	echo "ASICd - precompiled binaries available"
 	$(CP) $(ASICD_BIN) $(DESTDIR)/$(COMP_NAME)
+endif
 
 ipc:
 	$(IPC_GEN_CMD) -r --gen go -out $(GENERATED_IPC) $(IPC_SRCS)
@@ -74,7 +78,6 @@ endif
 ifeq ($(MLNX_TARGET), true)
 	$(CP_R) $(SAI_LIBS) $(DESTDIR)/sharedlib/
 endif
-	$(CP_R) $(BASE_ASICD_BIN)/libcustom.so $(DESTDIR)/sharedlib/
 	$(CP_R) $(PLUGIN_MGR_DIR)/pluginCommon/utils/libhash.so.1 $(DESTDIR)/sharedlib/
 
 clean:
