@@ -13,13 +13,13 @@
 //	 See the License for the specific language governing permissions and
 //	 limitations under the License.
 //
-// _______  __       __________   ___      _______.____    __    ____  __  .___________.  ______  __    __  
-// |   ____||  |     |   ____\  \ /  /     /       |\   \  /  \  /   / |  | |           | /      ||  |  |  | 
-// |  |__   |  |     |  |__   \  V  /     |   (----` \   \/    \/   /  |  | `---|  |----`|  ,----'|  |__|  | 
-// |   __|  |  |     |   __|   >   <       \   \      \            /   |  |     |  |     |  |     |   __   | 
-// |  |     |  `----.|  |____ /  .  \  .----)   |      \    /\    /    |  |     |  |     |  `----.|  |  |  | 
-// |__|     |_______||_______/__/ \__\ |_______/        \__/  \__/     |__|     |__|      \______||__|  |__| 
-//                                                                                                           
+// _______  __       __________   ___      _______.____    __    ____  __  .___________.  ______  __    __
+// |   ____||  |     |   ____\  \ /  /     /       |\   \  /  \  /   / |  | |           | /      ||  |  |  |
+// |  |__   |  |     |  |__   \  V  /     |   (----` \   \/    \/   /  |  | `---|  |----`|  ,----'|  |__|  |
+// |   __|  |  |     |   __|   >   <       \   \      \            /   |  |     |  |     |  |     |   __   |
+// |  |     |  `----.|  |____ /  .  \  .----)   |      \    /\    /    |  |     |  |     |  `----.|  |  |  |
+// |__|     |_______||_______/__/ \__\ |_______/        \__/  \__/     |__|     |__|      \______||__|  |__|
+//
 
 package asicdCommonDefs
 
@@ -38,6 +38,8 @@ const (
 	HASH_SEL_SRCDSTIP                = pluginCommon.HASHTYPE_SRCIP_DSTIP
 	NOTIFY_IPV4_ROUTE_CREATE_FAILURE = pluginCommon.NOTIFY_IPV4_ROUTE_CREATE_FAILURE
 	NOTIFY_IPV4_ROUTE_DELETE_FAILURE = pluginCommon.NOTIFY_IPV4_ROUTE_DELETE_FAILURE
+	NOTIFY_IPV6_ROUTE_CREATE_FAILURE = pluginCommon.NOTIFY_IPV6_ROUTE_CREATE_FAILURE
+	NOTIFY_IPV6_ROUTE_DELETE_FAILURE = pluginCommon.NOTIFY_IPV6_ROUTE_DELETE_FAILURE
 	NOTIFY_L2INTF_STATE_CHANGE       = pluginCommon.NOTIFY_L2INTF_STATE_CHANGE
 	NOTIFY_L3INTF_STATE_CHANGE       = pluginCommon.NOTIFY_L3INTF_STATE_CHANGE
 	NOTIFY_VLAN_CREATE               = pluginCommon.NOTIFY_VLAN_CREATE
@@ -45,6 +47,8 @@ const (
 	NOTIFY_VLAN_UPDATE               = pluginCommon.NOTIFY_VLAN_UPDATE
 	NOTIFY_IPV4INTF_CREATE           = pluginCommon.NOTIFY_IPV4INTF_CREATE
 	NOTIFY_IPV4INTF_DELETE           = pluginCommon.NOTIFY_IPV4INTF_DELETE
+	NOTIFY_IPV6INTF_CREATE           = pluginCommon.NOTIFY_IPV6INTF_CREATE
+	NOTIFY_IPV6INTF_DELETE           = pluginCommon.NOTIFY_IPV6INTF_DELETE
 	NOTIFY_LAG_CREATE                = pluginCommon.NOTIFY_LAG_CREATE
 	NOTIFY_LAG_DELETE                = pluginCommon.NOTIFY_LAG_DELETE
 	NOTIFY_LAG_UPDATE                = pluginCommon.NOTIFY_LAG_UPDATE
@@ -52,6 +56,7 @@ const (
 	NOTIFY_LOGICAL_INTF_DELETE       = pluginCommon.NOTIFY_LOGICAL_INTF_DELETE
 	NOTIFY_LOGICAL_INTF_UPDATE       = pluginCommon.NOTIFY_LOGICAL_INTF_UPDATE
 	NOTIFY_IPV4NBR_MAC_MOVE          = pluginCommon.NOTIFY_IPV4NBR_MAC_MOVE
+	NOTIFY_IPV6NBR_MAC_MOVE          = pluginCommon.NOTIFY_IPV6NBR_MAC_MOVE
 	NOTIFY_VTEP_CREATE               = pluginCommon.NOTIFY_VTEP_CREATE
 	NOTIFY_VTEP_DELETE               = pluginCommon.NOTIFY_VTEP_DELETE
 	INTF_STATE_UP                    = pluginCommon.INTF_STATE_UP
@@ -76,7 +81,9 @@ type VlanNotifyMsg pluginCommon.VlanNotifyMsg
 type LogicalIntfNotifyMsg pluginCommon.LogicalIntfNotifyMsg
 type LagNotifyMsg pluginCommon.LagNotifyMsg
 type IPv4IntfNotifyMsg pluginCommon.IPv4IntfNotifyMsg
+type IPv6IntfNotifyMsg pluginCommon.IPv6IntfNotifyMsg
 type IPv4NbrMacMoveNotifyMsg pluginCommon.IPv4NbrMacMoveNotifyMsg
+type IPv6NbrMacMoveNotifyMsg pluginCommon.IPv6NbrMacMoveNotifyMsg
 type IPv4RouteAddDelFailNotifyMsg struct {
 	routeList []asicdInt.IPv4Route
 }
