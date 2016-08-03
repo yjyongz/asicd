@@ -117,6 +117,9 @@ service ASICDINTServices {
     //Vlan
     VlanGetInfo GetBulkVlan(1: int fromIndex, 2: int count);
 
+    //Intf
+    IntfGetInfo GetBulkIntf(1: int fromIndex, 2: int count);
+
     //STP
     i32 CreateStg(1:list<i32> vlanList);
     bool DeleteStg(1:i32 stgId);
@@ -148,4 +151,18 @@ service ASICDINTServices {
     //IPv6 routes
     oneway void OnewayCreateIPv6Route(1:list<IPv6Route> ipv6RouteList);
     oneway void OnewayDeleteIPv6Route(1:list<IPv6Route> ipv6RouteList);
+
+    //Enable/disable packet reception for protocol mac
+    bool EnablePacketReception(1:RsvdProtocolMacConfig config);
+    bool DisablePacketReception(1:RsvdProtocolMacConfig config);
+	
+    //Err-disable	
+    bool ErrorDisablePort(1: i32 ifIndex, 2:string AdminState, 3:string ErrDisableReason)
+	
+    //VxLan
+    i32 CreateVxlanVtep(1: Vtep config);
+    bool DeleteVxlanVtep(1: Vtep config);
+    i32 CreateVxlan(1: Vxlan config);
+    bool DeleteVxlan(1: Vxlan config);
+    bool LearnFdbVtep(1:string mac, 2:string vtep, 3:i32 ifindex);
 }

@@ -114,3 +114,13 @@ func (svcHdlr AsicDaemonServiceHandler) GetMacTableEntryState(macAddr string) (*
 func (svcHdlr AsicDaemonServiceHandler) GetBulkMacTableEntryState(currMarker, count asicdServices.Int) (*asicdServices.MacTableEntryStateGetInfo, error) {
 	return nil, nil
 }
+
+/* Method to enable packet reception for specific protocol mac */
+func (svcHdlr AsicDaemonServiceHandler) EnablePacketReception(macObj *asicdInt.RsvdProtocolMacConfig) (rv bool, err error) {
+	return rv, err
+}
+
+/* Method to disable packet reception for specific protocol mac */
+func (svcHdlr AsicDaemonServiceHandler) DisablePacketReception(macObj *asicdInt.RsvdProtocolMacConfig) (rv bool, err error) {
+	return rv, err
+}

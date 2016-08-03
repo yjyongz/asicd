@@ -87,4 +87,3 @@ type IPv6NbrMacMoveNotifyMsg pluginCommon.IPv6NbrMacMoveNotifyMsg
 type IPv4RouteAddDelFailNotifyMsg struct {
 	routeList []asicdInt.IPv4Route
 }
-type VtepNotifyMsg pluginCommon.VtepNotifyMsg

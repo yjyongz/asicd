@@ -29,6 +29,12 @@ import (
 	"asicdServices"
 )
 
+//Utility method to retrieve list of ifindex to ifname mapping
+func (svcHdlr AsicDaemonServiceHandler) GetBulkIntf(currMarker, count asicdInt.Int) (*asicdInt.IntfGetInfo, error) {
+	bulkObj := asicdInt.NewIntfGetInfo()
+	return bulkObj, nil
+}
+
 //Logical Intf related services
 func (svcHdlr AsicDaemonServiceHandler) CreateLogicalIntf(confObj *asicdServices.LogicalIntf) (rv bool, err error) {
 	return rv, err
