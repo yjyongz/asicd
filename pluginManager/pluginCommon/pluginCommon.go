@@ -111,6 +111,7 @@ const (
 	ROUTE_TYPE_CONNECTED        = C.ROUTE_TYPE_CONNECTED
 	ROUTE_TYPE_MULTIPATH        = C.ROUTE_TYPE_MULTIPATH
 	ROUTE_TYPE_SINGLEPATH       = C.ROUTE_TYPE_SINGLEPATH
+	ROUTE_TYPE_V6               = C.ROUTE_TYPE_V6
 )
 
 // Interface id/type mgmt
@@ -189,14 +190,22 @@ const (
 	NOTIFY_LOGICAL_INTF_UPDATE
 	NOTIFY_IPV4INTF_CREATE
 	NOTIFY_IPV4INTF_DELETE
+	NOTIFY_IPV6INTF_CREATE
+	NOTIFY_IPV6INTF_DELETE
 	NOTIFY_LAG_CREATE
 	NOTIFY_LAG_DELETE
 	NOTIFY_LAG_UPDATE
 	NOTIFY_IPV4NBR_MAC_MOVE
+	NOTIFY_IPV6NBR_MAC_MOVE
 	NOTIFY_IPV4_ROUTE_CREATE_FAILURE
 	NOTIFY_IPV4_ROUTE_DELETE_FAILURE
+	NOTIFY_IPV6_ROUTE_CREATE_FAILURE
+	NOTIFY_IPV6_ROUTE_DELETE_FAILURE
 	NOTIFY_VTEP_CREATE
 	NOTIFY_VTEP_DELETE
+	NOTIFY_MPLSINTF_STATE_CHANGE
+	NOTIFY_MPLSINTF_CREATE
+	NOTIFY_MPLSINTF_DELETE
 )
 
 // Format of asicd's published messages
@@ -239,107 +248,12 @@ type IPv4NbrMacMoveNotifyMsg struct {
 	IfIndex int32
 	VlanId  int32
 }
-type VtepNotifyMsg struct {
-	VtepName   string
-	IfIndex    int32
-	Vni        int32
-	SrcIfIndex int32
-	SrcIfName  string
+type IPv6NbrMacMoveNotifyMsg struct {
+	IpAddr  string
+	IfIndex int32
+	VlanId  int32
 }
-
-// Struct containing info required for mapping asic ports to linux interfaces
-type IfMapInfo struct {
-	IfName string
-	Port   int
-}
-
-// Struct used for configuring sub interface on all plugins
-type SubIntfPluginObj struct {
-	IfIndex        int32
-	IpAddr         uint32
-	MaskLen        int
-	VlanId         int
-	StateUp        bool
-	SubIntfIfIndex int32
-	MacAddr        net.HardwareAddr
-}
-
-// Struct used for configuring ports
-type PortConfig struct {
-	PortNum           int32
-	Description       string
-	PhyIntfType       string
-	AdminState        string
-	MacAddr           string
-	Speed             int32
-	Duplex            string
-	Autoneg           string
-	MediaType         string
-	Mtu               int32
-	LogicalPortInfo   bool
-	MappedToHw        bool
-	BreakOutMode      int32
-	BreakOutSupported bool
-}
-
-// Struct used for retrieving port state
-type PortState struct {
-	PortNum           int32
-	IfIndex           int32
-	Name              string
-	OperState         string
-	NumUpEvents       int32
-	LastUpEventTime   string
-	NumDownEvents     int32
-	LastDownEventTime string
-	Pvid              int32
-	IfInOctets        int64
-	IfInUcastPkts     int64
-	IfInDiscards      int64
-	IfInErrors        int64
-	IfInUnknownProtos int64
-	IfOutOctets       int64
-	IfOutUcastPkts    int64
-	IfOutDiscards     int64
-	IfOutErrors       int64
-	ErrDisableReason  string
-}
-
-// Struct used for ECMP/WCMP group creation
-type NextHopGroupMemberInfo struct {
-	IpAddr    uint32
-	NextHopId uint64
-	Weight    int
-	RifId     int32
-}
-
-//Format of callback functions for updating DBs in individual resource managers
-type ProcessLinkStateChangeCB func(int32, int32, string, string)
-type InitPortConfigDBCB func(*PortConfig)
-type InitPortStateDBCB func(int32, string)
-type UpdatePortStateDBCB func(*PortState)
-type UpdateLagDBCB func(int, int, []int32)
-type UpdateIPv4NeighborDBCB func(uint32, net.HardwareAddr, int32, uint64)
-type UpdateIPv4RouteDBCB func(uint32, uint32, uint32)
-type UpdateIPv4NextHopDBCB func()
-type UpdateIPv4NextHopGroupDBCB func()
-type MacEntryTableCB func(int, int32, int32, net.HardwareAddr)
-
-func ComputeSetDifference(a, b []int32) (aDiffb []int32) {
-	var bMap map[int32]bool = make(map[int32]bool, 0)
-	if len(a) == 0 {
-		return a
-	}
-	if len(b) == 0 {
-		return a
-	}
-	for _, elem := range b {
-		bMap[elem] = true
-	}
-	for _, elem := range a {
-		if _, ok := bMap[elem]; !ok {
-			aDiffb = append(aDiffb, elem)
-		}
-	}
-	return aDiffb
+type IPv6IntfNotifyMsg struct {
+	IpAddr  string
+	IfIndex int32
 }

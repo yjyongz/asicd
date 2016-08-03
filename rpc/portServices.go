@@ -65,3 +65,8 @@ func (svcHdlr AsicDaemonServiceHandler) GetBulkPortState(currMarker, count asicd
 func (svcHdlr AsicDaemonServiceHandler) GetPortState(intfRef string) (*asicdServices.PortState, error) {
 	return nil, nil
 }
+
+/* Method to error disable a port */
+func (svcHdlr AsicDaemonServiceHandler) ErrorDisablePort(ifIndex int32, adminState string, errDisableReason string) (bool, error) {
+	return true, nil
+}
