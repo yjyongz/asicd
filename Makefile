@@ -38,6 +38,10 @@ else ifeq ($(BUILD_TARGET), accton_wedge40)
 	BCM_KMODS = $(BCMDIR)/accton_wedge40/kmod/*.ko
 	BCM_LIBS = $(BCMDIR)/accton_wedge40/lib/libbcm.so.1
 	BCM_TARGET = true
+else ifeq ($(BUILD_TARGET), accton_wedge100)
+	BCM_KMODS = $(BCMDIR)/accton_wedge100/kmod/*.ko
+	BCM_LIBS = $(BCMDIR)/accton_wedge100/lib/libbcm.so.1
+	BCM_TARGET = true
 endif
 ifeq ($(BUILD_TARGET), mlnx_sn2700)
 	SAI_LIBS = $(MLNXDIR)/mlnx_sn2700/lib/*
@@ -49,6 +53,8 @@ else ifeq ($(BUILD_TARGET), accton_as5712)
 	ASICD_BIN = $(BCMDIR)/accton_as5712/asicd
 else ifeq ($(BUILD_TARGET), accton_wedge40)
 	ASICD_BIN = $(BCMDIR)/accton_wedge40/asicd
+else ifeq ($(BUILD_TARGET), accton_wedge100)
+	ASICD_BIN = $(BCMDIR)/accton_wedge100/asicd
 else ifeq ($(BUILD_TARGET), mlnx_sn2700)
 	ASICD_BIN = $(MLNXDIR)/mlnx_sn2700/asicd
 else
