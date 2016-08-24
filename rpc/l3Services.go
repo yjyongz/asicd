@@ -171,3 +171,11 @@ func (svcHdlr AsicDaemonServiceHandler) UpdateSubIPv6Intf(oldSubIPv6IntfObj,
 func (svcHdlr AsicDaemonServiceHandler) DeleteSubIPv6Intf(subipv6IntfObj *asicdServices.SubIPv6Intf) (rv bool, err error) {
 	return rv, err
 }
+
+func (svcHdlr AsicDaemonServiceHandler) GetBulkNdpEntryHwState(currMarker, count asicdServices.Int) (*asicdServices.NdpEntryHwStateGetInfo, error) {
+	return nil, nil
+}
+
+func (svcHdlr AsicDaemonServiceHandler) GetNdpEntryHwState(ipAddr string) (*asicdServices.NdpEntryHwState, error) {
+	return nil, nil
+}

@@ -70,3 +70,19 @@ func (svcHdlr AsicDaemonServiceHandler) GetPortState(intfRef string) (*asicdServ
 func (svcHdlr AsicDaemonServiceHandler) ErrorDisablePort(ifIndex int32, adminState string, errDisableReason string) (bool, error) {
 	return true, nil
 }
+func (svcHdlr AsicDaemonServiceHandler) GetBulkBufferPortStatState(currMarker, count asicdServices.Int) (*asicdServices.BufferPortStatStateGetInfo, error) {
+	return nil, nil
+}
+
+func (svcHdlr AsicDaemonServiceHandler) GetBufferPortStatState(intfRef string) (*asicdServices.BufferPortStatState, error) {
+	return nil, nil
+}
+
+func (svcHdlr AsicDaemonServiceHandler) GetBulkBufferGlobalStatState(currMarker, count asicdServices.Int) (*asicdServices.BufferGlobalStatStateGetInfo, error) {
+	return nil, nil
+
+}
+
+func (svcHdlr AsicDaemonServiceHandler) GetBufferGlobalStatState(deviceId int32) (*asicdServices.BufferGlobalStatState, error) {
+	return nil, nil
+}
