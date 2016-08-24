@@ -77,6 +77,10 @@ const (
 	PORT_ATTR_MTU                         = C.PORT_ATTR_MTU
 	PORT_ATTR_BREAKOUT_MODE               = C.PORT_ATTR_BREAKOUT_MODE
 
+	//Intf related constants
+	IP_TYPE_IPV4 = C.IP_TYPE_IPV4
+	IP_TYPE_IPV6 = C.IP_TYPE_IPV6
+
 	//STP related consts
 	STP_PORT_STATE_BLOCKING   = C.StpPortStateBlocking
 	STP_PORT_STATE_LEARNING   = C.StpPortStateLearning
@@ -221,6 +225,7 @@ type L2IntfStateNotifyMsg struct {
 }
 type L3IntfStateNotifyMsg struct {
 	IpAddr  string
+	IpType  int
 	IfIndex int32
 	IfState uint8
 }
