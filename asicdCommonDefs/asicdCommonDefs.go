@@ -68,6 +68,8 @@ const (
 	STP_PORT_STATE_BLOCKING          = pluginCommon.STP_PORT_STATE_BLOCKING
 	STP_PORT_STATE_LEARNING          = pluginCommon.STP_PORT_STATE_LEARNING
 	STP_PORT_STATE_FORWARDING        = pluginCommon.STP_PORT_STATE_FORWARDING
+	IP_TYPE_IPV6                     = pluginCommon.IP_TYPE_IPV6
+	IP_TYPE_IPV4                     = pluginCommon.IP_TYPE_IPV4
 )
 
 var GetIntfIdFromIfIndex pluginCommon.GetId = pluginCommon.GetIdFromIfIndex
