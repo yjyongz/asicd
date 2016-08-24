@@ -159,9 +159,6 @@ service ASICDINTServices {
     //Err-disable	
     bool ErrorDisablePort(1: i32 ifIndex, 2:string AdminState, 3:string ErrDisableReason)
 	
-    // auto generated for vxland, and copied here as config is proxied
-    // so if interface changes must update here as well.  Only difference is
-    // the asicd tends to return id values and the function names changed 
     i32 CreateVxlanVtep(1: Vtep config);
     bool DeleteVxlanVtep(1: Vtep config);
     i32 CreateVxlan(1: Vxlan config);
