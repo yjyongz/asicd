@@ -152,14 +152,13 @@ service ASICDINTServices {
     oneway void OnewayCreateIPv6Route(1:list<IPv6Route> ipv6RouteList);
     oneway void OnewayDeleteIPv6Route(1:list<IPv6Route> ipv6RouteList);
 
-    //Enable/disable packet reception for protocol mac
+    //Protocol Mac Addr
     bool EnablePacketReception(1:RsvdProtocolMacConfig config);
     bool DisablePacketReception(1:RsvdProtocolMacConfig config);
 	
     //Err-disable	
     bool ErrorDisablePort(1: i32 ifIndex, 2:string AdminState, 3:string ErrDisableReason)
 	
-    //VxLan
     i32 CreateVxlanVtep(1: Vtep config);
     bool DeleteVxlanVtep(1: Vtep config);
     i32 CreateVxlan(1: Vxlan config);
