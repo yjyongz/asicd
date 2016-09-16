@@ -33,7 +33,7 @@ import (
  * hashType  - Hash algorithm to use for this lag
  * ports     - List of ports to be added as members of this lag
  */
-func (svcHdlr AsicDaemonServiceHandler) CreateLag(hashType int32, ports string) (rval int32, err error) {
+func (svcHdlr AsicDaemonServiceHandler) CreateLag(ifName string, hashType int32, ports string) (rval int32, err error) {
 	return rval, nil
 }
 

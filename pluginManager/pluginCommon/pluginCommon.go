@@ -47,6 +47,7 @@ const (
 	INTF_STATE_DOWN    = C.INTF_STATE_DOWN
 	MIN_SYS_PORTS      = 0
 	MAX_SYS_PORTS      = 256
+	ASICD_CONFIG_FILE  = "asicdConf.json"
 
 	//FDB relate consts
 	MAC_ENTRY_LEARNED = C.MAC_ENTRY_LEARNED
@@ -261,4 +262,5 @@ type IPv6NbrMacMoveNotifyMsg struct {
 type IPv6IntfNotifyMsg struct {
 	IpAddr  string
 	IfIndex int32
+	IntfRef string
 }

@@ -129,7 +129,7 @@ service ASICDINTServices {
     i32 FlushFdbStgGroup(1:i32 stgId);
 
     //LAG
-    i32 CreateLag(1:i32 hashType, 2:string ifIndexList);
+    i32 CreateLag(1:string ifName, 2:i32 hashType, 3:string ifIndexList);
     i32 DeleteLag(1:i32 lagId);
     i32 UpdateLag(1:i32 lagId, 2:i32 hashType, 3:string ifIndexList);
     LagGetInfo GetBulkLag(1:int fromIndex, 2:int count);
