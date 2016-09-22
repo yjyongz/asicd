@@ -179,3 +179,11 @@ func (svcHdlr AsicDaemonServiceHandler) GetBulkNdpEntryHwState(currMarker, count
 func (svcHdlr AsicDaemonServiceHandler) GetNdpEntryHwState(ipAddr string) (*asicdServices.NdpEntryHwState, error) {
 	return nil, nil
 }
+
+func (svcHdlr AsicDaemonServiceHandler) GetBulkLinkScopeIpState(currMarker, count asicdServices.Int) (*asicdServices.LinkScopeIpStateGetInfo, error) {
+	return nil, nil
+}
+
+func (svcHdlr AsicDaemonServiceHandler) GetLinkScopeIpState(lsIpAddr string) (*asicdServices.LinkScopeIpState, error) {
+	return nil, nil
+}
