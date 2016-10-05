@@ -126,7 +126,7 @@ service ASICDINTServices {
     bool SetPortStpState(1:i32 stgId, 2:i32 port, 3:i32 stpState);
     i32 GetPortStpState(1:i32 stgId, 2:i32 port);
     bool UpdateStgVlanList(1:i32 stgId, 2:list<i32> vlanList);
-    i32 FlushFdbStgGroup(1:i32 stgId);
+    oneway void FlushFdbStgGroup(1:i32 stgId, 2:i32 port);
 
     //LAG
     i32 CreateLag(1:string ifName, 2:i32 hashType, 3:string ifIndexList);

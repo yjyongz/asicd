@@ -186,7 +186,8 @@ var DuplexType map[int]string = map[int]string{
 const (
 	//Asicd notification msgs
 	NOTIFY_L2INTF_STATE_CHANGE = iota
-	NOTIFY_L3INTF_STATE_CHANGE
+    NOTIFY_IPV4_L3INTF_STATE_CHANGE
+    NOTIFY_IPV6_L3INTF_STATE_CHANGE
 	NOTIFY_VLAN_CREATE
 	NOTIFY_VLAN_DELETE
 	NOTIFY_VLAN_UPDATE
@@ -211,6 +212,7 @@ const (
 	NOTIFY_MPLSINTF_STATE_CHANGE
 	NOTIFY_MPLSINTF_CREATE
 	NOTIFY_MPLSINTF_DELETE
+    NOTIFY_PORT_CONFIG_MODE_CHANGE
 )
 
 // Format of asicd's published messages
@@ -224,11 +226,15 @@ type L2IntfStateNotifyMsg struct {
 	IfIndex int32
 	IfState uint8
 }
-type L3IntfStateNotifyMsg struct {
-	IpAddr  string
-	IpType  int
-	IfIndex int32
-	IfState uint8
+type IPv4L3IntfStateNotifyMsg struct {
+    IpAddr  string
+    IfIndex int32
+    IfState uint8
+}
+type IPv6L3IntfStateNotifyMsg struct {
+    IpAddr  string
+    IfIndex int32
+    IfState uint8
 }
 type VlanNotifyMsg struct {
 	VlanId     uint16
@@ -263,4 +269,9 @@ type IPv6IntfNotifyMsg struct {
 	IpAddr  string
 	IfIndex int32
 	IntfRef string
+}
+type PortConfigModeChgNotifyMsg struct {
+    IfIndex int32
+    OldMode string
+    NewMode string
 }

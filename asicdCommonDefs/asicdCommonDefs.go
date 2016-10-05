@@ -41,7 +41,9 @@ const (
 	NOTIFY_IPV6_ROUTE_CREATE_FAILURE = pluginCommon.NOTIFY_IPV6_ROUTE_CREATE_FAILURE
 	NOTIFY_IPV6_ROUTE_DELETE_FAILURE = pluginCommon.NOTIFY_IPV6_ROUTE_DELETE_FAILURE
 	NOTIFY_L2INTF_STATE_CHANGE       = pluginCommon.NOTIFY_L2INTF_STATE_CHANGE
-	NOTIFY_L3INTF_STATE_CHANGE       = pluginCommon.NOTIFY_L3INTF_STATE_CHANGE
+	NOTIFY_IPV4_L3INTF_STATE_CHANGE  = pluginCommon.NOTIFY_IPV4_L3INTF_STATE_CHANGE
+	NOTIFY_IPV6_L3INTF_STATE_CHANGE  = pluginCommon.NOTIFY_IPV6_L3INTF_STATE_CHANGE
+	NOTIFY_PORT_CONFIG_MODE_CHANGE   = pluginCommon.NOTIFY_PORT_CONFIG_MODE_CHANGE
 	NOTIFY_VLAN_CREATE               = pluginCommon.NOTIFY_VLAN_CREATE
 	NOTIFY_VLAN_DELETE               = pluginCommon.NOTIFY_VLAN_DELETE
 	NOTIFY_VLAN_UPDATE               = pluginCommon.NOTIFY_VLAN_UPDATE
@@ -78,7 +80,8 @@ var GetIfIndexFromIntfIdAndIntfType pluginCommon.GetIfIndex = pluginCommon.GetIf
 
 type AsicdNotification pluginCommon.AsicdNotification
 type L2IntfStateNotifyMsg pluginCommon.L2IntfStateNotifyMsg
-type L3IntfStateNotifyMsg pluginCommon.L3IntfStateNotifyMsg
+type IPv4L3IntfStateNotifyMsg pluginCommon.IPv4L3IntfStateNotifyMsg
+type IPv6L3IntfStateNotifyMsg pluginCommon.IPv6L3IntfStateNotifyMsg
 type VlanNotifyMsg pluginCommon.VlanNotifyMsg
 type LogicalIntfNotifyMsg pluginCommon.LogicalIntfNotifyMsg
 type LagNotifyMsg pluginCommon.LagNotifyMsg
@@ -89,3 +92,4 @@ type IPv6NbrMacMoveNotifyMsg pluginCommon.IPv6NbrMacMoveNotifyMsg
 type IPv4RouteAddDelFailNotifyMsg struct {
 	routeList []asicdInt.IPv4Route
 }
+type PortConfigModeChgNotifyMsg pluginCommon.PortConfigModeChgNotifyMsg

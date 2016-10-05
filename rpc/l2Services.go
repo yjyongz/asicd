@@ -101,8 +101,8 @@ func (svcHdlr AsicDaemonServiceHandler) UpdateStgVlanList(stgId int32, vlanList 
 /* Method to flush FDB table per vlan
  * stgId - Id of stg for flush operation
  */
-func (svcHdlr AsicDaemonServiceHandler) FlushFdbStgGroup(stgId int32) (delay int32, err error) {
-	return delay, err
+func (svcHdlr AsicDaemonServiceHandler) FlushFdbStgGroup(stgId, port int32) error {
+	return nil
 }
 
 /* Method to retrieve MAC table information for specific mac addr */
