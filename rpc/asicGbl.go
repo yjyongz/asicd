@@ -36,3 +36,31 @@ func (svcHdlr AsicDaemonServiceHandler) GetAsicGlobalState(moduleId int8) (*asic
 func (svcHdlr AsicDaemonServiceHandler) GetBulkAsicGlobalState(currMarker, count asicdServices.Int) (*asicdServices.AsicGlobalStateGetInfo, error) {
 	return nil, nil
 }
+
+func (svcHdlr AsicDaemonServiceHandler) CreateAsicGlobalPM(obj *asicdServices.AsicGlobalPM) (bool, error) {
+	return true, nil
+}
+
+func (svcHdlr AsicDaemonServiceHandler) DeleteAsicGlobalPM(obj *asicdServices.AsicGlobalPM) (bool, error) {
+	return true, nil
+}
+
+func (svcHdlr AsicDaemonServiceHandler) UpdateAsicGlobalPM(oldObj, newObj *asicdServices.AsicGlobalPM, attrset []bool, op []*asicdServices.PatchOpInfo) (bool, error) {
+	return true, nil
+}
+
+func (svcHdlr AsicDaemonServiceHandler) GetAsicGlobalPM(moduleId int8, resource string) (*asicdServices.AsicGlobalPM, error) {
+	return nil, nil
+}
+
+func (svcHdlr AsicDaemonServiceHandler) GetBulkAsicGlobalPM(currMarker, count asicdServices.Int) (*asicdServices.AsicGlobalPMGetInfo, error) {
+	return nil, nil
+}
+
+func (svcHdlr AsicDaemonServiceHandler) GetAsicGlobalPMState(moduleId int8, resource string) (*asicdServices.AsicGlobalPMState, error) {
+	return nil, nil
+}
+
+func (svcHdlr AsicDaemonServiceHandler) GetBulkAsicGlobalPMState(currMarker, count asicdServices.Int) (*asicdServices.AsicGlobalPMStateGetInfo, error) {
+	return nil, nil
+}

@@ -86,3 +86,31 @@ func (svcHdlr AsicDaemonServiceHandler) GetBulkBufferGlobalStatState(currMarker,
 func (svcHdlr AsicDaemonServiceHandler) GetBufferGlobalStatState(deviceId int32) (*asicdServices.BufferGlobalStatState, error) {
 	return nil, nil
 }
+
+func (svcHdlr AsicDaemonServiceHandler) CreateEthernetPM(obj *asicdServices.EthernetPM) (bool, error) {
+	return true, nil
+}
+
+func (svcHdlr AsicDaemonServiceHandler) DeleteEthernetPM(obj *asicdServices.EthernetPM) (bool, error) {
+	return true, nil
+}
+
+func (svcHdlr AsicDaemonServiceHandler) UpdateEthernetPM(oldObj, newObj *asicdServices.EthernetPM, attrset []bool, op []*asicdServices.PatchOpInfo) (bool, error) {
+	return true, nil
+}
+
+func (svcHdlr AsicDaemonServiceHandler) GetEthernetPM(intfRef, resource string) (*asicdServices.EthernetPM, error) {
+	return nil, nil
+}
+
+func (svcHdlr AsicDaemonServiceHandler) GetBulkEthernetPM(currMarker, count asicdServices.Int) (*asicdServices.EthernetPMGetInfo, error) {
+	return nil, nil
+}
+
+func (svcHdlr AsicDaemonServiceHandler) GetEthernetPMState(intfRef, resource string) (*asicdServices.EthernetPMState, error) {
+	return nil, nil
+}
+
+func (svcHdlr AsicDaemonServiceHandler) GetBulkEthernetPMState(currMarker, count asicdServices.Int) (*asicdServices.EthernetPMStateGetInfo, error) {
+	return nil, nil
+}
