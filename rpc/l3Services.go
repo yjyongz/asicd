@@ -187,3 +187,11 @@ func (svcHdlr AsicDaemonServiceHandler) GetBulkLinkScopeIpState(currMarker, coun
 func (svcHdlr AsicDaemonServiceHandler) GetLinkScopeIpState(lsIpAddr string) (*asicdServices.LinkScopeIpState, error) {
 	return nil, nil
 }
+
+func (svcHdlr AsicDaemonServiceHandler) GetIPv6RouteHwState(destinationNw string) (*asicdServices.IPv6RouteHwState, error) {
+	return nil, nil
+}
+
+func (svcHdlr AsicDaemonServiceHandler) GetBulkIPv6RouteHwState(currMarker, count asicdServices.Int) (*asicdServices.IPv6RouteHwStateGetInfo, error) {
+	return nil, nil
+}
