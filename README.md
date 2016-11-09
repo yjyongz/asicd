@@ -23,7 +23,7 @@ The core infrastructure within Asicd is distributed across multiple resource man
 ####Plugins :
 The asic daemon uses a plugin based approach to effectively abstract differences between ASICs from multiple vendors. The following plugins and asic vendors are currently supported
 - Vendor SDK (Broadcom)
-- SAI (Mellanox, Barefoot)
+- SAI 
 - Softswitch (Linux host)
 
 ####Events handling :
