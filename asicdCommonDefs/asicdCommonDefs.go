@@ -44,6 +44,7 @@ const (
 	NOTIFY_IPV4_L3INTF_STATE_CHANGE  = pluginCommon.NOTIFY_IPV4_L3INTF_STATE_CHANGE
 	NOTIFY_IPV6_L3INTF_STATE_CHANGE  = pluginCommon.NOTIFY_IPV6_L3INTF_STATE_CHANGE
 	NOTIFY_PORT_CONFIG_MODE_CHANGE   = pluginCommon.NOTIFY_PORT_CONFIG_MODE_CHANGE
+	NOTIFY_PORT_CONFIG_MTU_CHANGE    = pluginCommon.NOTIFY_PORT_CONFIG_MTU_CHANGE
 	NOTIFY_VLAN_CREATE               = pluginCommon.NOTIFY_VLAN_CREATE
 	NOTIFY_VLAN_DELETE               = pluginCommon.NOTIFY_VLAN_DELETE
 	NOTIFY_VLAN_UPDATE               = pluginCommon.NOTIFY_VLAN_UPDATE
@@ -93,3 +94,4 @@ type IPv4RouteAddDelFailNotifyMsg struct {
 	routeList []asicdInt.IPv4Route
 }
 type PortConfigModeChgNotifyMsg pluginCommon.PortConfigModeChgNotifyMsg
+type PortConfigMtuChgNotifyMsg pluginCommon.PortConfigMtuChgNotifyMsg

@@ -213,6 +213,7 @@ const (
 	NOTIFY_MPLSINTF_CREATE
 	NOTIFY_MPLSINTF_DELETE
     NOTIFY_PORT_CONFIG_MODE_CHANGE
+    NOTIFY_PORT_CONFIG_MTU_CHANGE
 )
 
 // Format of asicd's published messages
@@ -238,6 +239,7 @@ type IPv6L3IntfStateNotifyMsg struct {
 }
 type VlanNotifyMsg struct {
 	VlanId     uint16
+	VlanIfIndex int32
 	VlanName   string
 	TagPorts   []int32
 	UntagPorts []int32
@@ -254,6 +256,7 @@ type LagNotifyMsg struct {
 type IPv4IntfNotifyMsg struct {
 	IpAddr  string
 	IfIndex int32
+	IntfRef string
 }
 type IPv4NbrMacMoveNotifyMsg struct {
 	IpAddr  string
@@ -274,4 +277,8 @@ type PortConfigModeChgNotifyMsg struct {
     IfIndex int32
     OldMode string
     NewMode string
+}
+type PortConfigMtuChgNotifyMsg struct {
+    IfIndex int32
+    Mtu int32
 }
