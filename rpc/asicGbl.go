@@ -64,3 +64,11 @@ func (svcHdlr AsicDaemonServiceHandler) GetAsicGlobalPMState(moduleId int8, reso
 func (svcHdlr AsicDaemonServiceHandler) GetBulkAsicGlobalPMState(currMarker, count asicdServices.Int) (*asicdServices.AsicGlobalPMStateGetInfo, error) {
 	return nil, nil
 }
+
+func (svcHdlr AsicDaemonServiceHandler) GetAsicSummaryState(moduleId int8) (*asicdServices.AsicSummaryState, error) {
+	return nil, nil
+}
+
+func (svcHdlr AsicDaemonServiceHandler) GetBulkAsicSummaryState(currMarker, count asicdServices.Int) (*asicdServices.AsicSummaryStateGetInfo, error) {
+	return nil, nil
+}
