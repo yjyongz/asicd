@@ -27,7 +27,133 @@ package rpc
 import (
 	"asicdInt"
 	"asicdServices"
+	"encoding/json"
+	"fmt"
+	"github.com/confluentinc/confluent-kafka-go/kafka"
 )
+
+const RADD = 0
+const RDEL = 1
+
+const Gbroker = "sjc-ads-6624:9092"
+const Gtopic = "test"
+
+type IPv4RouteConfigWrapper struct {
+	Ipv4Route []asicdInt.IPv4Route
+	Operation int32
+}
+
+type IPv6RouteConfigWrapper struct {
+	Ipv6Route []asicdInt.IPv6Route
+	Operation int32
+}
+
+func OneWayHandleIPv4Kafka(broker string, topic string, nexthopInfo IPv4RouteConfigWrapper) error {
+	lbroker := broker
+	ltopic := topic
+
+	p, err := kafka.NewProducer(&kafka.ConfigMap{"bootstrap.servers": lbroker})
+
+	if err != nil {
+		fmt.Printf("Failed to create producer: %s\n", err)
+		return err
+	}
+
+	fmt.Printf("Created Producer %v\n", p)
+
+	// Optional delivery channel, if not specified the Producer object's
+	// .Events channel is used.
+	deliveryChan := make(chan kafka.Event)
+
+	value, _ := json.Marshal(nexthopInfo)
+	err = p.Produce(&kafka.Message{TopicPartition: kafka.TopicPartition{Topic: &ltopic, Partition: kafka.PartitionAny}, Value: []byte(value)}, deliveryChan)
+
+	e := <-deliveryChan
+	m := e.(*kafka.Message)
+
+	if m.TopicPartition.Error != nil {
+		fmt.Printf("Delivery failed: %v\n", m.TopicPartition.Error)
+	} else {
+		fmt.Printf("Delivered message to topic %s [%d] at offset %v\n",
+			*m.TopicPartition.Topic, m.TopicPartition.Partition, m.TopicPartition.Offset)
+	}
+
+	close(deliveryChan)
+	return nil
+}
+
+func OneWayHandleIPv6Kafka(broker string, topic string, nexthopInfo IPv6RouteConfigWrapper) error {
+	lbroker := broker
+	ltopic := topic
+
+	p, err := kafka.NewProducer(&kafka.ConfigMap{"bootstrap.servers": lbroker})
+
+	if err != nil {
+		fmt.Printf("Failed to create producer: %s\n", err)
+		return err
+	}
+
+	fmt.Printf("Created Producer %v\n", p)
+
+	// Optional delivery channel, if not specified the Producer object's
+	// .Events channel is used.
+	deliveryChan := make(chan kafka.Event)
+
+	value, _ := json.Marshal(nexthopInfo)
+	err = p.Produce(&kafka.Message{TopicPartition: kafka.TopicPartition{Topic: &ltopic, Partition: kafka.PartitionAny}, Value: []byte(value)}, deliveryChan)
+
+	e := <-deliveryChan
+	m := e.(*kafka.Message)
+
+	if m.TopicPartition.Error != nil {
+		fmt.Printf("Delivery failed: %v\n", m.TopicPartition.Error)
+	} else {
+		fmt.Printf("Delivered message to topic %s [%d] at offset %v\n",
+			*m.TopicPartition.Topic, m.TopicPartition.Partition, m.TopicPartition.Offset)
+	}
+
+	close(deliveryChan)
+	return nil
+}
+
+func OnewayHandleIPv6Route(ipv6RouteList []*asicdInt.IPv6Route, operation int32) *IPv6RouteConfigWrapper {
+	nexthopInfo := new(IPv6RouteConfigWrapper)
+	nexthopInfo.Operation = operation
+	nexthopInfo.Ipv6Route = make([]asicdInt.IPv6Route, len(ipv6RouteList))
+	for idx, route := range ipv6RouteList {
+		nexthopInfo.Ipv6Route[idx].DestinationNw = route.DestinationNw
+		nexthopInfo.Ipv6Route[idx].NetworkMask = route.NetworkMask
+		nexthopInfo.Ipv6Route[idx].Protocol = route.Protocol
+		//nexthopInfo[idx].Cost = route.Cost
+		//nexthopInfo[idx].NullRoute = route.NullRoute
+		nexthopInfo.Ipv6Route[idx].NextHopList = make([]*asicdInt.IPv6NextHop, len(route.NextHopList))
+		for jdx, nexthop := range route.NextHopList {
+			nexthopInfo.Ipv6Route[idx].NextHopList[jdx] = new(asicdInt.IPv6NextHop)
+			nexthopInfo.Ipv6Route[idx].NextHopList[jdx].NextHopIp = nexthop.NextHopIp
+			//nexthopInfo.Ipv4Route[idx].NextHop[jdx].NextHopIntRef = nexthop.NextHopIfType
+			nexthopInfo.Ipv6Route[idx].NextHopList[jdx].Weight = nexthop.Weight
+		}
+	}
+	return nexthopInfo
+}
+
+func OnewayHandleIPv4Route(ipv4RouteList []*asicdInt.IPv4Route, operation int32) *IPv4RouteConfigWrapper {
+	nexthopInfo := new(IPv4RouteConfigWrapper)
+	nexthopInfo.Operation = operation
+	nexthopInfo.Ipv4Route = make([]asicdInt.IPv4Route, len(ipv4RouteList))
+	for idx, route := range ipv4RouteList {
+		nexthopInfo.Ipv4Route[idx].DestinationNw = route.DestinationNw
+		nexthopInfo.Ipv4Route[idx].NetworkMask = route.NetworkMask
+		nexthopInfo.Ipv4Route[idx].Protocol = route.Protocol
+		nexthopInfo.Ipv4Route[idx].NextHopList = make([]*asicdInt.IPv4NextHop, len(route.NextHopList))
+		for jdx, nexthop := range route.NextHopList {
+			nexthopInfo.Ipv4Route[idx].NextHopList[jdx] = new(asicdInt.IPv4NextHop)
+			nexthopInfo.Ipv4Route[idx].NextHopList[jdx].NextHopIp = nexthop.NextHopIp
+			nexthopInfo.Ipv4Route[idx].NextHopList[jdx].Weight = nexthop.Weight
+		}
+	}
+	return nexthopInfo
+}
 
 //Utility method to retrieve list of ifindex to ifname mapping
 func (svcHdlr AsicDaemonServiceHandler) GetBulkIntf(currMarker, count asicdInt.Int) (*asicdInt.IntfGetInfo, error) {
@@ -91,19 +217,42 @@ func (svcHdlr AsicDaemonServiceHandler) GetArpEntryHwState(ipAddr string) (*asic
 
 //IPv4 Route related services
 func (svcHdlr AsicDaemonServiceHandler) OnewayCreateIPv4Route(ipv4RouteList []*asicdInt.IPv4Route) error {
+	nexthopInfo := OnewayHandleIPv4Route(ipv4RouteList, RADD)
+	err := OneWayHandleIPv4Kafka(Gbroker, Gtopic, *nexthopInfo)
+	if err != nil {
+		return err
+	}
 	return nil
 }
+
 func (svcHdlr AsicDaemonServiceHandler) OnewayDeleteIPv4Route(ipv4RouteList []*asicdInt.IPv4Route) error {
+	nexthopInfo := OnewayHandleIPv4Route(ipv4RouteList, RDEL)
+	err := OneWayHandleIPv4Kafka(Gbroker, Gtopic, *nexthopInfo)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
 //IPv6 Route related services
 func (svcHdlr AsicDaemonServiceHandler) OnewayCreateIPv6Route(ipv6RouteList []*asicdInt.IPv6Route) error {
+	nexthopInfo := OnewayHandleIPv6Route(ipv6RouteList, RADD)
+	err := OneWayHandleIPv6Kafka(Gbroker, Gtopic, *nexthopInfo)
+	if err != nil {
+		return err
+	}
 	return nil
 }
+
 func (svcHdlr AsicDaemonServiceHandler) OnewayDeleteIPv6Route(ipv6RouteList []*asicdInt.IPv6Route) error {
+	nexthopInfo := OnewayHandleIPv6Route(ipv6RouteList, RDEL)
+	err := OneWayHandleIPv6Kafka(Gbroker, Gtopic, *nexthopInfo)
+	if err != nil {
+		return err
+	}
 	return nil
 }
+
 func (svcHdlr AsicDaemonServiceHandler) GetBulkIPv4RouteHwState(currMarker, count asicdServices.Int) (*asicdServices.IPv4RouteHwStateGetInfo, error) {
 	bulkObj := asicdServices.NewIPv4RouteHwStateGetInfo()
 	return bulkObj, nil
